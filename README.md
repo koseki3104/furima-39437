@@ -6,57 +6,56 @@
 | ---------------- | ------- | ------------------------ |
 | nickname         | string  | null: false,             |
 | email            | string  | null: false,unique: true |
-| password         | string  | null: false              |
+| encrypt_password | string  | null: false               |
 | last_name        | string  | null: false              |
 | first_name       | string  | null: false              |
 | last_name_kana   | string  | null: false              |
 | first_name_kana  | string  | null: false              |
-| year             | integer | null: false              |
-| month            | integer | null: false              |
-| day              | integer | null: false              |
+| birth_date_id    | integer | null: false              |
 ### Association
 has_many :items
-has_one :orders
+has_one :order
 
 
 ## itemsテーブル
-| Column              | Type    | Options                        |
-| ------------------- | ------- | ------------------------------ |
-| image               | string  | null: false                    |
-| product_name        | string  | null: false                    |
-| product_description | text    | null: false                    |
-| category            | string  | null: false                    |
-| condition           | string  | null: false                    |
-| origin_location     | string  | null: false                    |
-| shipping_duration   | string  | null: false                    |
-| user_id             | integer | null: false, foreign_key: true |
+| Column              | Type       | Options                        |
+| ------------------- | ---------- | ------------------------------ |
+| product_name        | string     | null: false                    |
+| product_description | text       | null: false                    |
+| category_id         | integer    | null: false                    |
+| condition_id        | integer    | null: false                    |
+| shipping_cost_id    | integer    | null: false                    |
+| prefecture_id       | integer    | null: false                    |
+| shipping_duration_id| integer    | null: false                    |
+| price               | integer    | null: false                    |
+| user                | references | null: false, foreign_key: true |
 ### Association
-belongs_to :users
-has_one :orders
+belongs_to :user
+has_one :order
 
 
 ## ordersテーブル
 
-| Column       | Type    | Options                        |
-| ------------ | ------- | ------------------------------ |
-| user_id      | integer | null: false, foreign_key: true |
-| items_id     | integer | null: false, foreign_key: true |
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| user         | references | null: false, foreign_key: true |
+| items        | references | null: false, foreign_key: true |
 ### Association
-- belongs_to :users
-- belongs_to :items
-  has_one :adresses
+- belongs_to :user
+- belongs_to :item
+  has_one :address
+  
 
+## addressesテーブル
 
-## adressesテーブル
-
-| Column       | Type    | Options                        |
-| ------------ | ------- | ------------------------------ |
-| purchase     | integer | null: false                    |
-| postal_code  | string  | null: false                    |
-| prefecture   | string  | null: false                    |
-| city         | string  | null: false                    |
-| adress_line1 | string  | null: false                    |
-| adress_line2 | string  | ------------------------------ |
-| phone_number | integer | null: false                    |
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postal_code   | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
+| city          | string     | null: false                    |
+| address_line1 | string     | null: false                    |
+| address_line2 | string     | ------------------------------ |
+| phone_number  | string     | null: false                    |
+| order         | references | null: false, foreign_key: true |
 ### Association
-- belongs_to :orders
+- belongs_to :order
