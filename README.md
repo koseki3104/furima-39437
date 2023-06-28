@@ -14,10 +14,10 @@
 | year             | integer | null: false              |
 | month            | integer | null: false              |
 | day              | integer | null: false              |
-
 ### Association
 has_many :items
-has_one :purchases
+has_one :orders
+
 
 ## itemsテーブル
 | Column              | Type    | Options                        |
@@ -30,12 +30,24 @@ has_one :purchases
 | origin_location     | string  | null: false                    |
 | shipping_duration   | string  | null: false                    |
 | user_id             | integer | null: false, foreign_key: true |
-
 ### Association
 belongs_to :users
-has_one :purchases
+has_one :orders
 
-## purchasesテーブル
+
+## ordersテーブル
+
+| Column       | Type    | Options                        |
+| ------------ | ------- | ------------------------------ |
+| user_id      | integer | null: false, foreign_key: true |
+| items_id     | integer | null: false, foreign_key: true |
+### Association
+- belongs_to :users
+- belongs_to :items
+  has_one :adresses
+
+
+## adressesテーブル
 
 | Column       | Type    | Options                        |
 | ------------ | ------- | ------------------------------ |
@@ -46,9 +58,5 @@ has_one :purchases
 | adress_line1 | string  | null: false                    |
 | adress_line2 | string  | ------------------------------ |
 | phone_number | integer | null: false                    |
-| user_id      | integer | null: false, foreign_key: true |
-| items_id     | integer | null: false, foreign_key: true |
-
 ### Association
-- belongs_to :users
-- belongs_to :items
+- belongs_to :orders
