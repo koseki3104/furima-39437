@@ -4,17 +4,17 @@
 
 | Column           | Type    | Options                  |
 | ---------------- | ------- | ------------------------ |
-| nickname         | string  | null: false,             |
+| nickname         | string  | null: false              |
 | email            | string  | null: false,unique: true |
-| encrypt_password | string  | null: false               |
+| encrypt_password | string  | null: false              |
 | last_name        | string  | null: false              |
 | first_name       | string  | null: false              |
 | last_name_kana   | string  | null: false              |
 | first_name_kana  | string  | null: false              |
-| birth_date_id    | integer | null: false              |
+| birth_date       | date    | null: false              |
 ### Association
 has_many :items
-has_one :order
+has_many :orders
 
 
 ## itemsテーブル
@@ -39,7 +39,7 @@ has_one :order
 | Column       | Type       | Options                        |
 | ------------ | ---------- | ------------------------------ |
 | user         | references | null: false, foreign_key: true |
-| items        | references | null: false, foreign_key: true |
+| item         | references | null: false, foreign_key: true |
 ### Association
 - belongs_to :user
 - belongs_to :item
