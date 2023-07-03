@@ -1,4 +1,4 @@
-class Article < ApplicationRecord
+class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
 
   belongs_to :user
@@ -12,7 +12,7 @@ class Article < ApplicationRecord
   belongs_to :shipping_duration
 
     class Item < ApplicationRecord
-      validates :image, attached: true
+      validates :image, presence: true
       validates :product_name, presence: true, length: { maximum: 40 }
       validates :product_description, presence: true, length: { maximum: 1000 }
       validates :category_id, numericality: { other_than: 1 } 
