@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
-  var itemPriceInput = document.getElementById('item-price');
-  var commissionElement = document.getElementById('add-tax-price');
-  var profitElement = document.getElementById('profit');
+  const itemPriceInput = document.getElementById('item-price');
+  const commissionElement = document.getElementById('add-tax-price');
+  const profitElement = document.getElementById('profit');
 
   itemPriceInput.addEventListener('input', function() {
-    var price = parseInt(this.value);
+    const price = Number(this.value);
     if (!isNaN(price)) {
-      var commission = Math.round(price * 0.1);
-      var profit = price - commission;
+      const commission = Math.round(price * 0.1);
+      const profit = price - commission;
       commissionElement.textContent = commission.toLocaleString();
       profitElement.textContent = profit.toLocaleString();
     } else {
