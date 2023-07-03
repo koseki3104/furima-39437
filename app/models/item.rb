@@ -11,7 +11,6 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :shipping_duration
 
-    class Item < ApplicationRecord
       validates :image, presence: true
       validates :product_name, presence: true, length: { maximum: 40 }
       validates :product_description, presence: true, length: { maximum: 1000 }
@@ -22,5 +21,4 @@ class Item < ApplicationRecord
       validates :shipping_duration_id, numericality: { other_than: 1 } 
       validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
       validates :user_id, presence: true
-    end
 end
