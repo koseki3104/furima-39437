@@ -7,11 +7,9 @@ app/assets/stylesheets/items/new.css %>
   </header>
   <div class="items-sell-main">
     <h2 class="items-sell-title">商品の情報を入力</h2>
-    <%= form_with local: true do |f| %>
+   <%= form_with model: @item,data:{turbo:false}, local: true do |f| %>
 
-    <%# インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
-    <%# render 'shared/error_messages', model: f.object %>
-    <%# //インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
+    <%= render 'shared/error_messages', model: f.object %>
 
     <%# 商品画像 %>
     <div class="img-upload">
@@ -33,13 +31,13 @@ app/assets/stylesheets/items/new.css %>
         商品名
         <span class="indispensable">必須</span>
       </div>
-      <%= f.text_area :product_name, class:"items-text", id:"item-name", placeholder:@item.product_name %>
+      <%= f.text_area :product_name, class:"items-text", id:"item-name", value:@item.product_name %>
       <div class="items-explain">
         <div class="weight-bold-text">
           商品の説明
           <span class="indispensable">必須</span>
         </div>
-        <%= f.text_area :product_description, class:"items-text", id:"item-info", placeholder:@item.product_description %>
+        <%= f.text_area :product_description, class:"items-text", id:"item-info", value:@item.product_description %>
       </div>
     </div>
     <%# /商品名と商品説明 %>
@@ -101,7 +99,7 @@ app/assets/stylesheets/items/new.css %>
             <span class="indispensable">必須</span>
           </div>
           <span class="sell-yen">¥</span>
-          <%= f.text_field :price, class:"price-input", id:"item-price", placeholder: "#{@item.price}" %>
+          <%= f.text_field :price, class:"price-input", id:"item-price", value: "#{@item.price}" %>
         </div>
         <div class="price-content">
           <span>販売手数料 (10%)</span>
