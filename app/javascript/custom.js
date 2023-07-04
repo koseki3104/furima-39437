@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   itemPriceInput.addEventListener('input', function() {
     const price = Number(this.value);
     if (!isNaN(price)) {
-      const commission = Math.round(price * 0.1);
+      const commission = Math.floor(price * 0.1);
       const profit = price - commission;
       commissionElement.textContent = commission.toLocaleString();
       profitElement.textContent = profit.toLocaleString();
