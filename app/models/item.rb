@@ -19,6 +19,6 @@ class Item < ApplicationRecord
       validates :shipping_cost_id, numericality: { other_than: 1 } 
       validates :prefecture_id, numericality: { other_than: 1 } 
       validates :shipping_duration_id, numericality: { other_than: 1 } 
-      validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
+      validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }, format: { with: /\A\d+\z/, message: "must be a valid integer" }
       validates :user_id, presence: true
 end
