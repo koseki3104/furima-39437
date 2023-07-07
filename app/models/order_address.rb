@@ -11,7 +11,7 @@ class OrderAddress
   validates :phone_number, presence: true, format: { with: /\A\d{10,11}\z/, message: "is invalid. Only allows 10 to 11 digits." }
 
   def save
-    order = Order.create(user_id: user.id, item_id: item.id)
+    order = Order.create(user_id: user_id, item_id: item_id)
     Address.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, address_line1: address_line1, address_line2: address_line2, phone_number: phone_number, order_id: order.id )
   end
 end
