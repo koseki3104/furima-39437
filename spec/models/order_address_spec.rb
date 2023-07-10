@@ -2,12 +2,9 @@ require 'rails_helper'
 
 RSpec.describe OrderAddress, type: :model do
   before do
-    @order_address = OrderAddress.new(user_id: 1, item_id: 1, postal_code: "123-4567", prefecture_id: 1, city: "Tokyo", address_line1: "123 Street", phone_number: "1234567890", token: "dummy_token")
+    @order_address = FactoryBot.build(:order_address)
   end
   
-  describe 'バリデーションのテスト' do
-  end
-
   describe 'バリデーションのテスト' do
     context '正しい条件の場合' do
       it '全ての属性が有効であること' do
@@ -41,9 +38,9 @@ RSpec.describe OrderAddress, type: :model do
       end
 
       it '都道府県がなければ無効であること' do
-        @order_address.prefecture_id = nil
+        @order_address.prefecture_id = 1
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Prefecture can't be blank")
+        expect(@order_address.errors.full_messages).to include("Prefecture must be other than 1")
       end
 
       it '市区町村がなければ無効であること' do
