@@ -10,6 +10,11 @@ RSpec.describe OrderAddress, type: :model do
       it '全ての属性が有効であること' do
         expect(@order_address).to be_valid
       end
+
+      it '建物名が空でも保存できること' do
+        @order_address.address_line2 = nil
+        expect(@order_address).to be_valid
+      end
     end
 
     context '不正な条件の場合' do
@@ -72,6 +77,11 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Phone number is invalid. Only allows 10 to 11 digits.")
       end
+
+        it '電話番号に半角数字以外の文字が含まれていると無効であること' do
+          @order_address.phone_number = '123-456-7890' 
+          expect(@order_address).to be_invalid
+        end
 
       it 'トークンがなければ無効であること' do
         @order_address.token = nil
