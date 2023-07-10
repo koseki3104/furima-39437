@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :check_item_status, only: [:index, :create]
 
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
@@ -32,4 +34,9 @@ class OrdersController < ApplicationController
       currency: 'jpy'                 
     )
   end
-end   
+
+  def check_item_status
+    @item = Item.find(params[:item_id])
+    redirect_to root_path if @item.order.present? || @item.user == current_user || @item.user == current_user
+  end
+end
