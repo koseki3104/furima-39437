@@ -2,10 +2,7 @@ require 'rails_helper'
 
 RSpec.describe OrderAddress, type: :model do
   before do
-    @order_address = FactoryBot.build(:order_address)
-    @order_address.user_id = Faker::Number.unique.between(from: 1, to: 100)
-    @order_address.item_id = Faker::Number.unique.between(from: 1, to: 100)
-    @order_address.postal_code = "#{Faker::Number.unique.between(from: 100, to: 999)}-#{Faker::Number.unique.between(from: 1000, to: 9999)}"
+    @order_address = OrderAddress.new(user_id: 1, item_id: 1, postal_code: "123-4567", prefecture_id: 1, city: "Tokyo", address_line1: "123 Street", phone_number: "1234567890", token: "dummy_token")
   end
   
   describe 'バリデーションのテスト' do
@@ -77,6 +74,12 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.phone_number = '123456789012'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Phone number is invalid. Only allows 10 to 11 digits.")
+      end
+
+      it 'トークンがなければ無効であること' do
+        @order_address.token = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Token can't be blank")
       end
     end
   end
