@@ -1,12 +1,12 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item_and_check_status, only: [:index, :create]
+  before_action :set_gon_public_key, only: [:index, :create]
 
   def index
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order_address = OrderAddress.new
   end
-  
+
   def create
     @order_address = OrderAddress.new(order_params)
     if @order_address.valid?
@@ -27,14 +27,18 @@ class OrdersController < ApplicationController
   def pay_item
     Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
     Payjp::Charge.create(
-      amount: @item.price,  
-      card: order_params[:token],    
-      currency: 'jpy'                 
+      amount: @item.price,
+      card: order_params[:token],
+      currency: 'jpy'
     )
   end
 
   def set_item_and_check_status
     @item = Item.find(params[:item_id])
     redirect_to root_path if @item.order.present? || @item.user == current_user
+  end
+
+  def set_gon_public_key
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
   end
 end
