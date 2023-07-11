@@ -2,7 +2,9 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
 
   belongs_to :user
+  has_one :order
 
+ 
   has_one_attached :image 
 
   belongs_to :category
@@ -20,4 +22,5 @@ class Item < ApplicationRecord
       validates :prefecture_id, numericality: { other_than: 1 } 
       validates :shipping_duration_id, numericality: { other_than: 1 } 
       validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999, only_integer: true }
+      
 end
