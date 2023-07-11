@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :item do
-    association :user, factory: :user
+    association :user
 
     after(:build) do |item|
       item.image.attach(io: File.open(Rails.root.join('public/images/test_image.png')), filename: 'test_image.png')

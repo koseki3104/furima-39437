@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe OrderAddress, type: :model do
   before do
-    user = FactoryBot.create(:user) 
-    item = FactoryBot.create(:item, user: user)
-    @order_address = FactoryBot.build(:order_address, user: user, item: item)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item, user_id: user.id)
+    @order_address = FactoryBot.build(:order_address, user_id: user.id, item_id: item.id)
   end
   
   describe 'バリデーションのテスト' do
@@ -80,10 +80,11 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include("Phone number is invalid. Only allows 10 to 11 digits.")
       end
 
-        it '電話番号に半角数字以外の文字が含まれていると無効であること' do
-          @order_address.phone_number = '123-456-7890' 
-          expect(@order_address).to be_invalid
-        end
+      it '電話番号に半角数字以外の文字が含まれていると無効であること' do
+        @order_address.phone_number = '123-456-7890' 
+        @order_address.valid?
+        expect(@order_address.errors[:phone_number]).to include("is invalid. Only allows 10 to 11 digits.")
+      end
 
       it 'トークンがなければ無効であること' do
         @order_address.token = nil
