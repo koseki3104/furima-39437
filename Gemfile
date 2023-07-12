@@ -89,4 +89,9 @@ gem 'image_processing', '~> 1.2'
 gem 'pry-rails'
 gem 'payjp'
 gem 'gon'
+gem "aws-sdk-s3", require: false
 # gem 'webpacker', '~> 5.0'
+
+group :production do
+  gem 'unicorn', '6.1.0'
+end
