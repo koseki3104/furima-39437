@@ -18,7 +18,7 @@ test:
   host: localhost
   database: furima_39437_test
 
-  production:
+production:
   <<: *default
   adapter: mysql2
   database: furima_39437_production
